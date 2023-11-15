@@ -201,36 +201,3 @@ class Zombie:
 
         self.bt = BehaviorTree(root)
 
-    #boy_state = play_mode.boy.get_current_state()
-        # if boy_state == 'RunRight':
-        #     self.move_slightly_to(play_mode.boy.x + 10, play_mode.boy.y)
-        #     if self.distance_less_than(play_mode.boy.x + 10, play_mode.boy.y, self.x, self.y, r):
-        #         return BehaviorTree.SUCCESS
-        # elif boy_state == 'RunRightUp':
-        #     self.move_slightly_to(play_mode.boy.x + 10, play_mode.boy.y + 10)
-        #     if self.distance_less_than(play_mode.boy.x + 10, play_mode.boy.y + 10, self.x, self.y, r):
-        #         return BehaviorTree.SUCCESS
-        # elif boy_state == 'RunRightDown':
-        #     self.move_slightly_to(play_mode.boy.x + 10, play_mode.boy.y - 10)
-        #     if self.distance_less_than(play_mode.boy.x + 10, play_mode.boy.y - 10, self.x, self.y, r):
-        #         return BehaviorTree.SUCCESS
-        # elif boy_state == 'RunLeft':
-        #     self.move_slightly_to(play_mode.boy.x - 10, play_mode.boy.y)
-        #     if self.distance_less_than(play_mode.boy.x - 10, play_mode.boy.y, self.x, self.y, r):
-        #         return BehaviorTree.SUCCESS
-        # elif boy_state == 'RunLeftUp':
-        #     self.move_slightly_to(play_mode.boy.x - 10, play_mode.boy.y + 10)
-        #     if self.distance_less_than(play_mode.boy.x - 10, play_mode.boy.y + 10, self.x, self.y, r):
-        #         return BehaviorTree.SUCCESS
-        # elif boy_state == 'RunLeftDown':
-        #     self.move_slightly_to(play_mode.boy.x - 10, play_mode.boy.y - 10)
-        #     if self.distance_less_than(play_mode.boy.x - 10, play_mode.boy.y - 10, self.x, self.y, r):
-        #         return BehaviorTree.SUCCESS
-        # elif boy_state == 'RunUp':
-        #     self.move_slightly_to(play_mode.boy.x, play_mode.boy.y + 10)
-        #     if self.distance_less_than(play_mode.boy.x, play_mode.boy.y + 10, self.x, self.y, r):
-        #         return BehaviorTree.SUCCESS
-        # elif boy_state == 'RunDown':
-        #     self.move_slightly_to(play_mode.boy.x, play_mode.boy.y - 10)
-        #     if self.distance_less_than(play_mode.boy.x, play_mode.boy.y - 10, self.x, self.y, r):
-        #         return BehaviorTree.SUCCESS
