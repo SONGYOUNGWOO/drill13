@@ -356,5 +356,8 @@ class Boy:
         if group == 'boy:ball':
             self.ball_count += 1
 
+    def get_current_state(self):
+        return self.cur_state
+
 
 
