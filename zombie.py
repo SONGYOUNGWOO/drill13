@@ -132,7 +132,43 @@ class Zombie:
 
     def run_away_to_boy(self, r=0.5):
         self.state = 'Walk'
-        
+        if play_mode.boy.cur_state == 'RunRight':
+            self.move_slightly_to(play_mode.boy.x + 10, play_mode.boy.y)
+            if self.distance_less_than(play_mode.boy.x + 10, play_mode.boy.y, self.x, self.y, r):
+                return BehaviorTree.SUCCESS
+
+        elif play_mode.boy.cur_state == 'RunRightUp':
+            self.move_slightly_to(play_mode.boy.x + 10, play_mode.boy.y + 10)
+            if self.distance_less_than(play_mode.boy.x + 10, play_mode.boy.y + 10, self.x, self.y, r):
+                return BehaviorTree.SUCCESS
+        elif play_mode.boy.cur_state == 'RunRightDown':
+            self.move_slightly_to(play_mode.boy.x + 10, play_mode.boy.y - 10)
+            if self.distance_less_than(play_mode.boy.x + 10, play_mode.boy.y - 10, self.x, self.y, r):
+                return BehaviorTree.SUCCESS
+        elif play_mode.boy.cur_state == 'RunLeft':
+            self.move_slightly_to(play_mode.boy.x - 10, play_mode.boy.y)
+            if self.distance_less_than(play_mode.boy.x - 10, play_mode.boy.y, self.x, self.y, r):
+                return BehaviorTree.SUCCESS
+        elif play_mode.boy.cur_state == 'RunLeftUp':
+            self.move_slightly_to(play_mode.boy.x - 10, play_mode.boy.y + 10)
+            if self.distance_less_than(play_mode.boy.x - 10, play_mode.boy.y + 10, self.x, self.y, r):
+                return BehaviorTree.SUCCESS
+        elif play_mode.boy.cur_state == 'RunLeftDown':
+            self.move_slightly_to(play_mode.boy.x - 10, play_mode.boy.y - 10)
+            if self.distance_less_than(play_mode.boy.x - 10, play_mode.boy.y - 10, self.x, self.y, r):
+                return BehaviorTree.SUCCESS
+        elif play_mode.boy.cur_state == 'RunUp':
+            self.move_slightly_to(play_mode.boy.x, play_mode.boy.y + 10)
+            if self.distance_less_than(play_mode.boy.x, play_mode.boy.y + 10, self.x, self.y, r):
+                return BehaviorTree.SUCCESS
+        elif play_mode.boy.cur_state == 'RunDown':
+            self.move_slightly_to(play_mode.boy.x, play_mode.boy.y - 10)
+            if self.distance_less_than(play_mode.boy.x, play_mode.boy.y - 10, self.x, self.y, r):
+                return BehaviorTree.SUCCESS
+        else:
+            return BehaviorTree.RUNNING
+
+
 
     def get_patrol_location(self):
         self.tx, self.ty = self.patrol_locations[self.loc_no]
@@ -162,10 +198,25 @@ class Zombie:
         SEQ_chase_boy = Sequence('소년을 추적', c1, a4)
 
 
-        root = SEL_chase_or_wander = Selector('추적 또는 배회',SEQ_chase_boy, SEQ_wander)
+
+        SEL_chase_or_wander = Selector('추적 또는 배회',SEQ_chase_boy, SEQ_wander)
 
         a5 = Action('순찰 위치 가져오기', self.get_patrol_location)
 
         SEQ_patrol = Sequence('순찰',a5, a2)
+
+
+        c2 = Condition('좀비가 소년보다 공이 많은가?', self.zombie_haveMoreBalls_than_boy)
+        a6 = Action('소년을 부터 도망', self.run_away_to_boy)
+
+        SEQ_runaway_boy = Sequence('소년으로 부터 도망', c2, a6)
+        SEQ_chase2_boy = Sequence('소년을 추적', c2, a4)
+
+        SEL_chase2_or_runaway = Selector('추적 또는 도망 ', SEQ_chase_boy, SEQ_runaway_boy)
+
+
+        SEQ_chase2_or_runaway = Sequence('추적 또는 도망', c1,  SEL_chase2_or_runaway)
+
+        root  = SEL_chase2_or_runaway_or_wander = Selector('추적 또는 도망 또는 배회', SEQ_chase2_or_runaway, SEQ_wander)
 
         self.bt = BehaviorTree(root)
